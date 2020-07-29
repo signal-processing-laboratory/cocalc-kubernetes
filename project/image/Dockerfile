@@ -14,10 +14,16 @@ ENV TERM screen
 
 # ATLAS kernel
 RUN pip3 install --upgrade pip
-RUN pip3 install -U virtualenv soundfile
-RUN mkdir /usr/env && cd /usr/env && git clone https://github.com/gabriel-milan/atlas-env && cd atlas-env && ./generate_env.sh --pip --saphyra --root
+RUN pip3 install -U virtualenv
+RUN mkdir /usr/env && cd /usr/env && mkdir atlas-env && cd atlas-env
+COPY generate_env.sh /usr/env/atlas-env/generate_env.sh
+COPY requirements.txt /usr/env/atlas-env/requirements.txt
+RUN cd /usr/env/atlas-env/ && ./generate_env.sh --pip --saphyra --root
 COPY kernels/atlas /usr/local/share/jupyter/kernels/atlas
 
-CMD /root/run.py
+USER user
+WORKDIR /home/user
+EXPOSE 2222 6000 6001
 
-EXPOSE 443
+ENTRYPOINT ["/cocalc/bin/tini", "--"]
+CMD ["sh", "-c", "env -i /cocalc/init/init.sh $COCALC_PROJECT_ID"]
