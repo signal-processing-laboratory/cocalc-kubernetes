@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "1"
+    deployment.kubernetes.io/revision: '1'
   labels:
     run: cocalc-kubernetes-server
   name: cocalc-kubernetes-server
@@ -20,31 +20,31 @@ spec:
         run: cocalc-kubernetes-server
     spec:
       containers:
-        - env:
-            - name: KUBERNETES_REGISTRY
-              value: lpsufrj
-          image: lpsufrj/cocalc-kubernetes-server:latest
-          name: cocalc-kubernetes-server
-          ports:
-            - containerPort: 80
-              name: http
-              protocol: TCP
-            - containerPort: 443
-              name: https
-              protocol: TCP
-            - containerPort: 2049
-              name: nfs
-            - containerPort: 20048
-              name: mountd
-            - containerPort: 111
-              name: rpcbind
-          securityContext:
-            privileged: true
-          volumeMounts:
-            - mountPath: /projects
-              name: projects
+      - env:
+        - name: KUBERNETES_REGISTRY
+          value: sagemathinc
+        image: sagemathinc/cocalc-kubernetes-server:latest
+        name: cocalc-kubernetes-server
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        - containerPort: 443
+          name: https
+          protocol: TCP
+        - containerPort: 2049
+          name: nfs
+        - containerPort: 20048
+          name: mountd
+        - containerPort: 111
+          name: rpcbind
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /projects
+          name: projects
       serviceAccountName: cocalc-kubernetes-server
       terminationGracePeriodSeconds: 15
       volumes:
-        - emptyDir: {}
-          name: projects
+      - emptyDir: {}
+        name: projects
