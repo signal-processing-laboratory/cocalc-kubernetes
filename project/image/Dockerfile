@@ -14,11 +14,10 @@ ENV TERM screen
 
 # ATLAS kernel
 RUN pip3 install --upgrade pip
-RUN pip3 install -U virtualenv
-RUN mkdir /usr/env && cd /usr/env && mkdir atlas-env && cd atlas-env
-COPY generate_env.sh /usr/env/atlas-env/generate_env.sh
+RUN pip3 install -U virtualenv ipykernel
+RUN mkdir /usr/env && cd /usr/env && git clone https://github.com/gabriel-milan/atlas-env
 COPY requirements.txt /usr/env/atlas-env/requirements.txt
-RUN cd /usr/env/atlas-env/ && ./generate_env.sh --pip --saphyra --root
+RUN cd /usr/env/atlas-env/ && ./generate_env.sh --pip --root --prometheus
 COPY kernels/atlas /usr/local/share/jupyter/kernels/atlas
 
 USER user

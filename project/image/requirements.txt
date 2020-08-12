@@ -1,4 +1,4 @@
-scipy
+scipy==1.4.1
 joblib
 soundfile
 otools
@@ -10,13 +10,17 @@ spacy
 sklearn
 keras
 sqlalchemy
-numpy
+numpy<1.19.0,>=1.16.0
 psycopg2-binary
 benedict
 Theano
 future
-tensorflow
+tensorflow==2.3.0
 Gaugi
 ipykernel
 lofo-importance
 pyarrow
+ipykernel
+kolmov
+uproot4
+saphyra
