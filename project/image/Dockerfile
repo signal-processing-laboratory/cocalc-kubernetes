@@ -6,7 +6,7 @@ USER root
 SHELL [ "/bin/bash", "-c" ]
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-ENV KUBERNETES_REGISTRY lpsufrj
+ENV KUBERNETES_REGISTRY ringeratlas
 ENV LC_ALL C.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en

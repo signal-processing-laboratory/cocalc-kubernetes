@@ -5,7 +5,7 @@ LABEL MAINTAINER Gabriel Gazola Milan <gabriel.milan@lps.ufrj.br>
 USER root
 
 # Setting custom registry for project images so we can add custom kernels
-ENV KUBERNETES_REGISTRY lpsufrj
+ENV KUBERNETES_REGISTRY ringeratlas
 
 # We assume typescript code is not invalid when building this to save a lot of time.
 ENV TS_TRANSPILE_ONLY true
