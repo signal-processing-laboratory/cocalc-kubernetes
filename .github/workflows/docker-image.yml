@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Build images (date tagged and latest)
+        run: docker build --file ./project/image/Dockerfile --compress --no-cache -t ringeratlas/cocalc-kubernetes-project:$(date '+%Y-%m-%d') ./project/image/. && docker build --file ./project/image/Dockerfile --compress -t ringeratlas/cocalc-kubernetes-project:latest ./project/image/.
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push to DockerHub
+        run: docker push ringeratlas/cocalc-kubernetes-project:$(date '+%Y-%m-%d') && docker push ringeratlas/cocalc-kubernetes-project:latest
